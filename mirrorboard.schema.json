@@ -1,11 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "mirrorboard.toml",
-  "description": "One organization's mirrorboard: its name, its owner and the files it consists of.",
+  "description": "One organization's mirrorboard: its name, its owner, its config files and its departments.",
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "mirrorboard"
+    "mirrorboard",
+    "departments"
   ],
   "properties": {
     "mirrorboard": {
@@ -15,8 +16,7 @@
         "name",
         "owner",
         "accounts",
-        "definitions",
-        "departments"
+        "definitions"
       ],
       "properties": {
         "name": {
@@ -37,11 +37,27 @@
           "type": "string",
           "description": "Path of the definitions file, relative to this file.",
           "pattern": "^\\./.+\\.toml$"
-        },
-        "departments": {
-          "type": "string",
-          "description": "Path of the departments file, relative to this file.",
-          "pattern": "^\\./.+\\.toml$"
+        }
+      }
+    },
+    "departments": {
+      "type": "object",
+      "description": "Department files; the key is the department's name in addresses like agent://<department>/<agent>.",
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9_-]*$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "department"
+        ],
+        "properties": {
+          "department": {
+            "type": "string",
+            "description": "Path of the department file, relative to this file.",
+            "pattern": "^\\./.+\\.toml$"
+          }
         }
       }
     }
