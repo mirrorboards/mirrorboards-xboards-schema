@@ -6,8 +6,6 @@
   "additionalProperties": false,
   "required": [
     "mirrorboard",
-    "chains",
-    "accounts",
     "definitions",
     "departments"
   ],
@@ -17,7 +15,8 @@
       "additionalProperties": false,
       "required": [
         "name",
-        "owner"
+        "owner",
+        "accounts"
       ],
       "properties": {
         "name": {
@@ -26,60 +25,13 @@
         },
         "owner": {
           "type": "string",
-          "description": "The organization's account on the chain, e.g. account://kancelaria-mania-piotrowska.",
+          "description": "The organization's account: account://<key of the accounts file>.",
           "pattern": "^account://[a-z][a-z0-9.-]*$"
-        }
-      }
-    },
-    "chains": {
-      "type": "object",
-      "description": "Chains the accounts live on; the key is used in addresses like chain://<key>.",
-      "propertyNames": {
-        "pattern": "^[a-z][a-z0-9-]*$"
-      },
-      "additionalProperties": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "id"
-        ],
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "The chain's id.",
-            "pattern": "^[0-9a-f]{64}$"
-          }
-        }
-      }
-    },
-    "accounts": {
-      "type": "object",
-      "description": "Accounts on the chain this mirrorboard refers to; the key is used in addresses like account://<key>.",
-      "propertyNames": {
-        "pattern": "^[a-z][a-z0-9.-]*$"
-      },
-      "additionalProperties": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "chain",
-          "name"
-        ],
-        "properties": {
-          "label": {
-            "type": "string",
-            "description": "Who or what the account is, as people read it."
-          },
-          "chain": {
-            "type": "string",
-            "description": "The chain the account lives on: chain://<key of [chains]>.",
-            "pattern": "^chain://[a-z][a-z0-9-]*$"
-          },
-          "name": {
-            "type": "string",
-            "description": "The account's name on that chain.",
-            "pattern": "^[a-z][a-z0-9.-]*$"
-          }
+        },
+        "accounts": {
+          "type": "string",
+          "description": "Path of the accounts file, relative to this file.",
+          "pattern": "^\\./.+\\.toml$"
         }
       }
     },

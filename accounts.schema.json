@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "accounts file",
+  "description": "The chains and the accounts on them that a mirrorboard refers to with chain:// and account://.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "chains",
+    "accounts"
+  ],
+  "properties": {
+    "chains": {
+      "type": "object",
+      "description": "Chains the accounts live on; the key is used in addresses like chain://<key>.",
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9-]*$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The chain's id.",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    },
+    "accounts": {
+      "type": "object",
+      "description": "Accounts on the chain this mirrorboard refers to; the key is used in addresses like account://<key>.",
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9.-]*$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "chain",
+          "name"
+        ],
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "Who or what the account is, as people read it."
+          },
+          "chain": {
+            "type": "string",
+            "description": "The chain the account lives on: chain://<key of [chains]>.",
+            "pattern": "^chain://[a-z][a-z0-9-]*$"
+          },
+          "name": {
+            "type": "string",
+            "description": "The account's name on that chain.",
+            "pattern": "^[a-z][a-z0-9.-]*$"
+          }
+        }
+      }
+    }
+  }
+}
