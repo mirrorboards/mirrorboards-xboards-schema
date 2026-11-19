@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "chains file",
+  "description": "The chains a mirrorboard's accounts live on, referred to with chain://.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "chains"
+  ],
+  "properties": {
+    "chains": {
+      "type": "object",
+      "description": "Chains the accounts live on; the key is used in addresses like chain://<key>.",
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9-]*$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The chain's id.",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    }
+  }
+}

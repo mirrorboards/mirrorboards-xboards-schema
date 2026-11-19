@@ -15,6 +15,7 @@
       "required": [
         "name",
         "owner",
+        "chains",
         "accounts",
         "definitions"
       ],
@@ -27,6 +28,11 @@
           "type": "string",
           "description": "The organization's account: account://<key of the accounts file>.",
           "pattern": "^account://[a-z][a-z0-9.-]*$"
+        },
+        "chains": {
+          "type": "string",
+          "description": "Path of the chains file, relative to this file.",
+          "pattern": "^\\./.+\\.toml$"
         },
         "accounts": {
           "type": "string",
