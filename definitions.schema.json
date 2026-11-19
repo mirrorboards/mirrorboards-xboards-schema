@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "definitions file",
+  "description": "The definition repositories a mirrorboard uses, each pinned to a commit.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "definitions"
+  ],
+  "properties": {
+    "definitions": {
+      "type": "object",
+      "description": "Definition repositories; the key is the scheme of addresses like def+kancelaria://spec/positions/...",
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9-]*$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "repository",
+          "rev"
+        ],
+        "properties": {
+          "repository": {
+            "type": "string",
+            "description": "The definition repository's URL.",
+            "pattern": "^https://"
+          },
+          "rev": {
+            "type": "string",
+            "description": "The pinned commit, so every deploy takes the same definitions.",
+            "pattern": "^[0-9a-f]{40}$"
+          }
+        }
+      }
+    }
+  }
+}
