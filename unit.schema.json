@@ -24,7 +24,9 @@
       "additionalProperties": {
         "type": "object",
         "additionalProperties": false,
-        "required": [],
+        "required": [
+          "owner"
+        ],
         "properties": {
           "definition": {
             "$ref": "#/$defs/register_definition",
@@ -51,7 +53,7 @@
     },
     "owner": {
       "type": "string",
-      "description": "The account that owns it: account://<key of [accounts] in mirrorboard.toml>. Without it, the organization's account owns it.",
+      "description": "The account that owns it: account://<key of the accounts file>. Always written out; nothing is owned by default.",
       "pattern": "^account://[a-z][a-z0-9.-]*$"
     },
     "position_definition": {
@@ -78,7 +80,8 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "definition"
+        "definition",
+        "owner"
       ],
       "properties": {
         "definition": {
