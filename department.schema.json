@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "department file",
-  "description": "One department of a mirrorboard: its agents and its registers.",
+  "description": "One department of a mirrorboard: its agents and its rooms.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -15,28 +15,27 @@
     "agents": {
       "$ref": "#/$defs/agents"
     },
-    "registers": {
+    "rooms": {
       "type": "object",
-      "description": "Registers: standing rooms on the chain.",
+      "description": "Rooms on the chain: registers (with a definition) and plain rooms such as agents' meta storage.",
       "propertyNames": {
         "$ref": "#/$defs/key"
       },
       "additionalProperties": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "definition"
-        ],
+        "required": [],
         "properties": {
           "definition": {
-            "$ref": "#/$defs/register_definition"
+            "$ref": "#/$defs/register_definition",
+            "description": "A register's definition. Without it the room is a plain room, e.g. an agent's meta storage."
           },
           "owner": {
             "$ref": "#/$defs/owner"
           },
           "permissions": {
             "type": "array",
-            "description": "Who is a member of this register's room, and with which Actanet permissions (DATA_ROOM_PERM_*). An entry with only address reads only.",
+            "description": "Who is a member of this room, and with which Actanet permissions (DATA_ROOM_PERM_*). An entry with only address reads only.",
             "items": {
               "$ref": "#/$defs/permission"
             }
@@ -88,9 +87,14 @@
         "owner": {
           "$ref": "#/$defs/owner"
         },
+        "meta": {
+          "type": "string",
+          "description": "The room this agent keeps its memory and metadata in: room://<department>/<room>.",
+          "pattern": "^room://[a-z][a-z0-9_-]*/[a-z][a-z0-9_-]*$"
+        },
         "permissions": {
           "type": "array",
-          "description": "Who is a member of this agent's own room, and with which Actanet permissions (DATA_ROOM_PERM_*). An entry with only address reads only.",
+          "description": "For an agent created later (nested): members of the meta room each such agent gets. A standing agent names its meta room with meta instead.",
           "items": {
             "$ref": "#/$defs/permission"
           }
