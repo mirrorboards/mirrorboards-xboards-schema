@@ -141,7 +141,7 @@
         },
         "contacts": {
           "type": "array",
-          "description": "Who may wake this agent and give it work: agents (also a partner's, agent+<organization>://) or accounts.",
+          "description": "Who may wake this agent and give it work: agents or accounts of this organization.",
           "items": {
             "type": "object",
             "additionalProperties": false,
@@ -151,7 +151,7 @@
             "properties": {
               "address": {
                 "type": "string",
-                "description": "agent://<unit>/<agent>[/<agent created later>], agent+<organization>://… for a partner's agent, or account://<key>."
+                "description": "agent://<unit>/<agent>[/<agent created later>] or account://<key>."
               }
             }
           }

@@ -18,8 +18,7 @@
         "chains",
         "accounts",
         "definitions",
-        "systems",
-        "organizations"
+        "systems"
       ],
       "properties": {
         "owner": {
@@ -49,11 +48,6 @@
         "systems": {
           "type": "string",
           "description": "Path of the systems file, relative to this file.",
-          "pattern": "^\\./.+\\.toml$"
-        },
-        "organizations": {
-          "type": "string",
-          "description": "Path of the organizations file, relative to this file.",
           "pattern": "^\\./.+\\.toml$"
         }
       }

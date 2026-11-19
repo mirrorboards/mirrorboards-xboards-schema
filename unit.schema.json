@@ -136,7 +136,7 @@
         },
         "contacts": {
           "type": "array",
-          "description": "Who may wake this agent and give it work: agents (also a partner's, agent+<organization>://) or accounts.",
+          "description": "Who may wake this agent and give it work: agents or accounts of this organization.",
           "items": {
             "type": "object",
             "additionalProperties": false,
@@ -146,8 +146,8 @@
             "properties": {
               "address": {
                 "type": "string",
-                "description": "agent://<unit>/<agent>[/<agent created later>], agent+<organization>://… for a partner's agent, or account://<key>.",
-                "pattern": "^(agent(\\+[a-z][a-z0-9-]*)?://[a-z][a-z0-9-]*(/[a-z][a-z0-9-]*)+|account://[a-z][a-z0-9.-]*)$"
+                "description": "agent://<unit>/<agent>[/<agent created later>] or account://<key>.",
+                "pattern": "^(agent://[a-z][a-z0-9-]*(/[a-z][a-z0-9-]*)+|account://[a-z][a-z0-9.-]*)$"
               }
             }
           }
@@ -208,8 +208,8 @@
       "properties": {
         "address": {
           "type": "string",
-          "description": "agent://<unit>/<agent>[/<agent created later>], agent+<organization>://… for a partner's agent, or account://<key>.",
-          "pattern": "^(agent(\\+[a-z][a-z0-9-]*)?://[a-z][a-z0-9-]*(/[a-z][a-z0-9-]*)+|account://[a-z][a-z0-9.-]*)$"
+          "description": "agent://<unit>/<agent>[/<agent created later>] or account://<key>.",
+          "pattern": "^(agent://[a-z][a-z0-9-]*(/[a-z][a-z0-9-]*)+|account://[a-z][a-z0-9.-]*)$"
         },
         "create_content": {
           "type": "boolean",
@@ -255,7 +255,7 @@
         "address": {
           "type": "string",
           "description": "agent://<unit>/<agent>, account://<name> or {{ agent }}.",
-          "pattern": "^(agent(\\+[a-z][a-z0-9-]*)?://[a-z][a-z0-9-]*(/[a-z][a-z0-9-]*)+|account://[a-z][a-z0-9.-]*|\\{\\{ agent \\}\\})$"
+          "pattern": "^(agent://[a-z][a-z0-9-]*(/[a-z][a-z0-9-]*)+|account://[a-z][a-z0-9.-]*|\\{\\{ agent \\}\\})$"
         },
         "create_content": {
           "type": "boolean",
