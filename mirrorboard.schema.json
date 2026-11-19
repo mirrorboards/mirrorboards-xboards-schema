@@ -53,18 +53,47 @@
         "pattern": "^[a-z][a-z0-9_-]*$"
       },
       "additionalProperties": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "unit"
-        ],
-        "properties": {
-          "unit": {
-            "type": "string",
-            "description": "Path of the unit file, relative to this file.",
-            "pattern": "^\\./.+\\.toml$"
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "unit"
+            ],
+            "properties": {
+              "unit": {
+                "type": "string",
+                "description": "Path of the unit file, relative to this file.",
+                "pattern": "^\\./.+\\.toml$"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "template",
+              "parameters"
+            ],
+            "properties": {
+              "template": {
+                "type": "string",
+                "description": "Path of the unit template, relative to this file.",
+                "pattern": "^\\./.+\\.toml$"
+              },
+              "parameters": {
+                "type": "object",
+                "description": "A value for every parameter the template lists; unit must equal this unit's key.",
+                "required": [
+                  "unit"
+                ],
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            }
           }
-        }
+        ]
       }
     }
   }
