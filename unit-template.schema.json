@@ -6,7 +6,7 @@
   "additionalProperties": false,
   "required": [
     "parameters",
-    "name"
+    "label"
   ],
   "properties": {
     "parameters": {
@@ -17,10 +17,6 @@
         "pattern": "^[a-z][a-z0-9_]*$"
       },
       "uniqueItems": true
-    },
-    "name": {
-      "type": "string",
-      "description": "The unit's name as people read it."
     },
     "agents": {
       "$ref": "#/$defs/agents"
@@ -54,6 +50,10 @@
           }
         }
       }
+    },
+    "label": {
+      "type": "string",
+      "description": "The unit's name as people read it."
     }
   },
   "$defs": {

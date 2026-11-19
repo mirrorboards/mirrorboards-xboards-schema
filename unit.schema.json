@@ -5,13 +5,9 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "name"
+    "label"
   ],
   "properties": {
-    "name": {
-      "type": "string",
-      "description": "The unit's name as people read it."
-    },
     "agents": {
       "$ref": "#/$defs/agents"
     },
@@ -44,12 +40,16 @@
           }
         }
       }
+    },
+    "label": {
+      "type": "string",
+      "description": "The unit's name as people read it."
     }
   },
   "$defs": {
     "key": {
       "type": "string",
-      "pattern": "^[a-z][a-z0-9_-]*$"
+      "pattern": "^[a-z][a-z0-9-]*$"
     },
     "owner": {
       "type": "string",
@@ -93,7 +93,7 @@
         "meta": {
           "type": "string",
           "description": "The room this agent keeps its memory and metadata in: room://<unit>/<room>.",
-          "pattern": "^room://[a-z][a-z0-9_-]*/[a-z][a-z0-9_-]*$"
+          "pattern": "^room://[a-z][a-z0-9-]*/[a-z][a-z0-9-]*$"
         },
         "permissions": {
           "type": "array",
@@ -117,7 +117,7 @@
         "address": {
           "type": "string",
           "description": "agent://<unit>/<agent> or account://<name>.",
-          "pattern": "^(agent://[a-z][a-z0-9_-]*/[a-z][a-z0-9_-]*|account://[a-z][a-z0-9.-]*)$"
+          "pattern": "^(agent://[a-z][a-z0-9-]*/[a-z][a-z0-9-]*|account://[a-z][a-z0-9.-]*)$"
         },
         "create_content": {
           "type": "boolean",

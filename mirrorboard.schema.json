@@ -13,17 +13,13 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "name",
+        "label",
         "owner",
         "chains",
         "accounts",
         "definitions"
       ],
       "properties": {
-        "name": {
-          "type": "string",
-          "description": "The organization's name as people read it."
-        },
         "owner": {
           "type": "string",
           "description": "The organization's account: account://<key of the accounts file>.",
@@ -43,6 +39,10 @@
           "type": "string",
           "description": "Path of the definitions file, relative to this file.",
           "pattern": "^\\./.+\\.toml$"
+        },
+        "label": {
+          "type": "string",
+          "description": "The organization's name as people read it."
         }
       }
     },
@@ -50,7 +50,7 @@
       "type": "object",
       "description": "Unit files: the parts of the organization, e.g. a department or a notary's own part; the key is the unit's name in addresses like agent://<unit>/<agent>.",
       "propertyNames": {
-        "pattern": "^[a-z][a-z0-9_-]*$"
+        "pattern": "^[a-z][a-z0-9-]*$"
       },
       "additionalProperties": {
         "oneOf": [
