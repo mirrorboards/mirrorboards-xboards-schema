@@ -17,7 +17,8 @@
         "owner",
         "chains",
         "accounts",
-        "definitions"
+        "definitions",
+        "systems"
       ],
       "properties": {
         "owner": {
@@ -43,6 +44,11 @@
         "label": {
           "type": "string",
           "description": "The organization's name as people read it."
+        },
+        "systems": {
+          "type": "string",
+          "description": "Path of the systems file, relative to this file.",
+          "pattern": "^\\./.+\\.toml$"
         }
       }
     },

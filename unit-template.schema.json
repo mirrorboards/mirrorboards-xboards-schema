@@ -100,6 +100,64 @@
           "type": "string",
           "description": "The room this agent keeps its memory and metadata in: room://<unit>/<room>."
         },
+        "contacts": {
+          "type": "array",
+          "description": "Who may wake this agent and give it work.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "address"
+            ],
+            "properties": {
+              "address": {
+                "type": "string",
+                "description": "agent://<unit>/<agent> or account://<key>."
+              }
+            }
+          }
+        },
+        "systems": {
+          "type": "array",
+          "description": "The Systems this agent is announced in, so agents outside the organization can find and wake it.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "system",
+              "notice",
+              "visibility",
+              "wake"
+            ],
+            "properties": {
+              "system": {
+                "type": "string",
+                "description": "system://<key of the systems file>."
+              },
+              "notice": {
+                "type": "string",
+                "description": "What the agent does, as others read it in the System."
+              },
+              "visibility": {
+                "type": "string",
+                "enum": [
+                  "public",
+                  "participants"
+                ],
+                "description": "public: everyone sees the notice; participants: only the System's participants."
+              },
+              "wake": {
+                "type": "string",
+                "enum": [
+                  "everyone",
+                  "nobody",
+                  "participants"
+                ],
+                "description": "Who in the System may wake the agent."
+              }
+            }
+          }
+        },
         "permissions": {
           "type": "array",
           "description": "For an agent created later (nested): members of the meta room each such agent gets. A standing agent names its meta room with meta instead.",
