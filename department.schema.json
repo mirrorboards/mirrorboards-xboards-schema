@@ -4,7 +4,9 @@
   "description": "One department of a mirrorboard: its agents and its registers.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["name"],
+  "required": [
+    "name"
+  ],
   "properties": {
     "name": {
       "type": "string",
@@ -22,7 +24,9 @@
       "additionalProperties": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["definition"],
+        "required": [
+          "definition"
+        ],
         "properties": {
           "definition": {
             "$ref": "#/$defs/register_definition"
@@ -67,7 +71,9 @@
     "agent": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["definition"],
+      "required": [
+        "definition"
+      ],
       "properties": {
         "definition": {
           "$ref": "#/$defs/position_definition"
@@ -75,11 +81,11 @@
         "owner": {
           "$ref": "#/$defs/owner"
         },
-        "supervisors": {
+        "permissions": {
           "type": "array",
-          "description": "Who directs this agent's work, each with rights in the agent's own room.",
+          "description": "Who is a member of this agent's own room, and with which Actanet permissions (DATA_ROOM_PERM_*). An entry with only address reads only.",
           "items": {
-            "$ref": "#/$defs/supervisor"
+            "$ref": "#/$defs/permission"
           }
         },
         "agents": {
@@ -87,26 +93,18 @@
         }
       }
     },
-    "supervisor": {
+    "permission": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["address", "permissions"],
+      "required": [
+        "address"
+      ],
       "properties": {
         "address": {
           "type": "string",
           "description": "agent://<department>/<agent> or account://<name>.",
           "pattern": "^(agent://[a-z][a-z0-9_-]*/[a-z][a-z0-9_-]*|account://[a-z][a-z0-9.-]*)$"
         },
-        "permissions": {
-          "$ref": "#/$defs/permissions"
-        }
-      }
-    },
-    "permissions": {
-      "type": "object",
-      "description": "Actanet room permissions (DATA_ROOM_PERM_*). Every member reads; {} means it only reads.",
-      "additionalProperties": false,
-      "properties": {
         "create_content": {
           "type": "boolean",
           "description": "Add new entries."
