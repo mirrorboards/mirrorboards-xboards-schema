@@ -97,20 +97,44 @@
         },
         "contacts": {
           "type": "array",
-          "description": "Who may wake this agent and give it work.",
+          "description": "Who may wake this agent and give it work: an agent or account of this organization, or the agents of one position in a partner organization.",
           "items": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": [
-              "address"
-            ],
-            "properties": {
-              "address": {
-                "type": "string",
-                "description": "agent://<unit>/<agent> or account://<key>.",
-                "pattern": "^(agent://[a-z][a-z0-9-]*/[a-z][a-z0-9-]*|account://[a-z][a-z0-9.-]*)$"
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "address"
+                ],
+                "properties": {
+                  "address": {
+                    "type": "string",
+                    "description": "agent://<unit>/<agent> or account://<key>.",
+                    "pattern": "^(agent://[a-z][a-z0-9-]*/[a-z][a-z0-9-]*|account://[a-z][a-z0-9.-]*)$"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "organization",
+                  "position"
+                ],
+                "properties": {
+                  "organization": {
+                    "type": "string",
+                    "description": "A partner organization's account: account://<key of the accounts file>.",
+                    "pattern": "^account://[a-z][a-z0-9.-]*$"
+                  },
+                  "position": {
+                    "type": "string",
+                    "description": "The partner's position whose agents may wake this one: definition+<id>://spec/positions/...",
+                    "pattern": "^definition\\+[a-z][a-z0-9-]*://spec/positions/.+$"
+                  }
+                }
               }
-            }
+            ]
           }
         },
         "systems": {
