@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "unit template",
+  "title": "unit blueprint",
   "description": "A unit with {{ parameter }} places, filled from mirrorboard.toml. After filling it must be a valid unit file.",
   "type": "object",
   "additionalProperties": false,
@@ -11,7 +11,7 @@
   "properties": {
     "parameters": {
       "type": "array",
-      "description": "Every parameter this template uses; mirrorboard.toml gives each one a value.",
+      "description": "Every parameter this blueprint uses; mirrorboard.toml gives each one a value.",
       "items": {
         "type": "string",
         "pattern": "^[a-z][a-z0-9_]*$"
@@ -54,6 +54,45 @@
     "label": {
       "type": "string",
       "description": "The unit's name as people read it."
+    },
+    "blueprints": {
+      "type": "object",
+      "description": "Blueprints of rooms made for agents created later.",
+      "propertyNames": {
+        "$ref": "#/$defs/key"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "parameters",
+          "owner"
+        ],
+        "properties": {
+          "parameters": {
+            "type": "array",
+            "description": "The parameters the blueprint uses, filled at each agent's birth.",
+            "items": {
+              "type": "string",
+              "enum": [
+                "agent"
+              ]
+            },
+            "uniqueItems": true
+          },
+          "owner": {
+            "$ref": "#/$defs/owner"
+          },
+          "permissions": {
+            "type": "array",
+            "description": "Who is a member of this room, and with which Actanet permissions (DATA_ROOM_PERM_*). An entry with only address reads only.",
+            "items": {
+              "$ref": "#/$defs/permission"
+            }
+          }
+        },
+        "description": "A room made later, once for each agent that names it as meta. {{ agent }} is the address of that agent."
+      }
     }
   },
   "$defs": {
@@ -98,7 +137,7 @@
         },
         "meta": {
           "type": "string",
-          "description": "The room this agent keeps its memory and metadata in: room://<unit>/<room>."
+          "description": "Where the agent keeps its memory: room://<unit>/<room> for a standing agent, blueprint://<unit>/<blueprint> for one created later, whose room is made from the blueprint at its birth."
         },
         "contacts": {
           "type": "array",
@@ -178,13 +217,6 @@
                 "description": "Who in the System may wake the agent."
               }
             }
-          }
-        },
-        "permissions": {
-          "type": "array",
-          "description": "For an agent created later (nested): members of the meta room each such agent gets. A standing agent names its meta room with meta instead.",
-          "items": {
-            "$ref": "#/$defs/permission"
           }
         },
         "agents": {

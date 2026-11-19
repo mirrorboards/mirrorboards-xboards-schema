@@ -44,6 +44,45 @@
     "label": {
       "type": "string",
       "description": "The unit's name as people read it."
+    },
+    "blueprints": {
+      "type": "object",
+      "description": "Blueprints of rooms made for agents created later.",
+      "propertyNames": {
+        "$ref": "#/$defs/key"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "parameters",
+          "owner"
+        ],
+        "properties": {
+          "parameters": {
+            "type": "array",
+            "description": "The parameters the blueprint uses, filled at each agent's birth.",
+            "items": {
+              "type": "string",
+              "enum": [
+                "agent"
+              ]
+            },
+            "uniqueItems": true
+          },
+          "owner": {
+            "$ref": "#/$defs/owner"
+          },
+          "permissions": {
+            "type": "array",
+            "description": "Who is a member of this room, and with which Actanet permissions (DATA_ROOM_PERM_*). An entry with only address reads only.",
+            "items": {
+              "$ref": "#/$defs/blueprint_permission"
+            }
+          }
+        },
+        "description": "A room made later, once for each agent that names it as meta. {{ agent }} is the address of that agent."
+      }
     }
   },
   "$defs": {
@@ -92,8 +131,8 @@
         },
         "meta": {
           "type": "string",
-          "description": "The room this agent keeps its memory and metadata in: room://<unit>/<room>.",
-          "pattern": "^room://[a-z][a-z0-9-]*/[a-z][a-z0-9-]*$"
+          "description": "Where the agent keeps its memory: room://<unit>/<room> for a standing agent, blueprint://<unit>/<blueprint> for one created later, whose room is made from the blueprint at its birth.",
+          "pattern": "^(room|blueprint)://[a-z][a-z0-9-]*/[a-z][a-z0-9-]*$"
         },
         "contacts": {
           "type": "array",
@@ -179,13 +218,6 @@
             }
           }
         },
-        "permissions": {
-          "type": "array",
-          "description": "For an agent created later (nested): members of the meta room each such agent gets. A standing agent names its meta room with meta instead.",
-          "items": {
-            "$ref": "#/$defs/permission"
-          }
-        },
         "agents": {
           "$ref": "#/$defs/agents"
         }
@@ -202,6 +234,52 @@
           "type": "string",
           "description": "agent://<unit>/<agent> or account://<name>.",
           "pattern": "^(agent://[a-z][a-z0-9-]*/[a-z][a-z0-9-]*|account://[a-z][a-z0-9.-]*)$"
+        },
+        "create_content": {
+          "type": "boolean",
+          "description": "Add new entries."
+        },
+        "manage_content": {
+          "type": "boolean",
+          "description": "Change and delete entries, also others'."
+        },
+        "grant_content": {
+          "type": "boolean",
+          "description": "Give others access to chosen entries."
+        },
+        "add_members": {
+          "type": "boolean",
+          "description": "Add members."
+        },
+        "remove_members": {
+          "type": "boolean",
+          "description": "Remove members."
+        },
+        "manage_permissions": {
+          "type": "boolean",
+          "description": "Change members' permissions, within its own."
+        },
+        "rotate_keys": {
+          "type": "boolean",
+          "description": "Replace the room's key, e.g. after removing a member."
+        },
+        "update_room": {
+          "type": "boolean",
+          "description": "Change the room's own settings."
+        }
+      }
+    },
+    "blueprint_permission": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "address"
+      ],
+      "properties": {
+        "address": {
+          "type": "string",
+          "description": "agent://<unit>/<agent>, account://<name> or {{ agent }}.",
+          "pattern": "^(agent://[a-z][a-z0-9-]*/[a-z][a-z0-9-]*|account://[a-z][a-z0-9.-]*|\\{\\{ agent \\}\\})$"
         },
         "create_content": {
           "type": "boolean",

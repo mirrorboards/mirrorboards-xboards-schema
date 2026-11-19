@@ -78,18 +78,18 @@
             "type": "object",
             "additionalProperties": false,
             "required": [
-              "template",
+              "blueprint",
               "parameters"
             ],
             "properties": {
-              "template": {
+              "blueprint": {
                 "type": "string",
-                "description": "Path of the unit template, relative to this file.",
+                "description": "Path of the unit blueprint, relative to this file.",
                 "pattern": "^\\./.+\\.toml$"
               },
               "parameters": {
                 "type": "object",
-                "description": "A value for every parameter the template lists; unit must equal this unit's key.",
+                "description": "A value for every parameter the blueprint lists; unit must equal this unit's key.",
                 "required": [
                   "unit"
                 ],
