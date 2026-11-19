@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "mirrorboard.toml",
+  "description": "One organization's mirrorboard: who owns it, which definitions it uses and which department files it consists of.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["mirrorboard", "definitions", "departments"],
+  "properties": {
+    "mirrorboard": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "owner"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The organization's name as people read it."
+        },
+        "owner": {
+          "type": "string",
+          "description": "The organization's account on the chain, e.g. account://kancelaria-mania-piotrowska.",
+          "pattern": "^account://[a-z][a-z0-9.-]*$"
+        }
+      }
+    },
+    "definitions": {
+      "type": "object",
+      "description": "Definition repositories; the key is the scheme of addresses like kancelaria://spec/positions/...",
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9-]*$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["repository", "rev"],
+        "properties": {
+          "repository": {
+            "type": "string",
+            "description": "The definition repository's URL.",
+            "pattern": "^https://"
+          },
+          "rev": {
+            "type": "string",
+            "description": "The pinned commit, so every deploy takes the same definitions.",
+            "pattern": "^[0-9a-f]{40}$"
+          }
+        }
+      }
+    },
+    "departments": {
+      "type": "object",
+      "description": "Department files; the key is the department's name in addresses like agent://<department>/<agent>.",
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9_-]*$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["department"],
+        "properties": {
+          "department": {
+            "type": "string",
+            "description": "Path of the department file, relative to this file.",
+            "pattern": "^\\./.+\\.toml$"
+          }
+        }
+      }
+    }
+  }
+}

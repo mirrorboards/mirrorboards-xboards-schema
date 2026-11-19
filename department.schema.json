@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "department file",
+  "description": "One department of a mirrorboard: its agents and its registers.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The department's name as people read it."
+    },
+    "agents": {
+      "$ref": "#/$defs/agents"
+    },
+    "registers": {
+      "type": "object",
+      "description": "Registers: standing rooms on the chain.",
+      "propertyNames": {
+        "$ref": "#/$defs/key"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["definition"],
+        "properties": {
+          "definition": {
+            "$ref": "#/$defs/register_definition"
+          },
+          "owner": {
+            "$ref": "#/$defs/owner"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "key": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "owner": {
+      "type": "string",
+      "description": "The account that owns it. Without it, the organization's account owns it.",
+      "pattern": "^account://[a-z][a-z0-9.-]*$"
+    },
+    "position_definition": {
+      "type": "string",
+      "description": "The position in a definition, e.g. kancelaria://spec/positions/ksiegowosc/glowny_ksiegowy.",
+      "pattern": "^[a-z][a-z0-9-]*://spec/(positions/.+|system)$"
+    },
+    "register_definition": {
+      "type": "string",
+      "description": "The register in a definition, e.g. kancelaria://spec/registers/depozyty.",
+      "pattern": "^[a-z][a-z0-9-]*://spec/registers/.+$"
+    },
+    "agents": {
+      "type": "object",
+      "description": "Agents. One nested under another is created by it later; one at the top is born at the deploy.",
+      "propertyNames": {
+        "$ref": "#/$defs/key"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/agent"
+      }
+    },
+    "agent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["definition"],
+      "properties": {
+        "definition": {
+          "$ref": "#/$defs/position_definition"
+        },
+        "owner": {
+          "$ref": "#/$defs/owner"
+        },
+        "supervisors": {
+          "type": "array",
+          "description": "Who directs this agent's work, each with rights in the agent's own room.",
+          "items": {
+            "$ref": "#/$defs/supervisor"
+          }
+        },
+        "agents": {
+          "$ref": "#/$defs/agents"
+        }
+      }
+    },
+    "supervisor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["address", "permissions"],
+      "properties": {
+        "address": {
+          "type": "string",
+          "description": "agent://<department>/<agent> or account://<name>.",
+          "pattern": "^(agent://[a-z][a-z0-9_-]*/[a-z][a-z0-9_-]*|account://[a-z][a-z0-9.-]*)$"
+        },
+        "permissions": {
+          "$ref": "#/$defs/permissions"
+        }
+      }
+    },
+    "permissions": {
+      "type": "object",
+      "description": "Actanet room permissions (DATA_ROOM_PERM_*). Every member reads; {} means it only reads.",
+      "additionalProperties": false,
+      "properties": {
+        "create_content": {
+          "type": "boolean",
+          "description": "Add new entries."
+        },
+        "manage_content": {
+          "type": "boolean",
+          "description": "Change and delete entries, also others'."
+        },
+        "grant_content": {
+          "type": "boolean",
+          "description": "Give others access to chosen entries."
+        },
+        "add_members": {
+          "type": "boolean",
+          "description": "Add members."
+        },
+        "remove_members": {
+          "type": "boolean",
+          "description": "Remove members."
+        },
+        "manage_permissions": {
+          "type": "boolean",
+          "description": "Change members' permissions, within its own."
+        },
+        "rotate_keys": {
+          "type": "boolean",
+          "description": "Replace the room's key, e.g. after removing a member."
+        },
+        "update_room": {
+          "type": "boolean",
+          "description": "Change the room's own settings."
+        }
+      }
+    }
+  }
+}
