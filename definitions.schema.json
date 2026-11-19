@@ -10,7 +10,7 @@
   "properties": {
     "definitions": {
       "type": "object",
-      "description": "Definition repositories; the key is the scheme of addresses like def+kancelaria://spec/positions/...",
+      "description": "Definition repositories; the key is the scheme of addresses like definition+kancelaria://spec/positions/...",
       "propertyNames": {
         "pattern": "^[a-z][a-z0-9-]*$"
       },

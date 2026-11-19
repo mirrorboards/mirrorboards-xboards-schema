@@ -56,13 +56,13 @@
     },
     "position_definition": {
       "type": "string",
-      "description": "The position in a definition, e.g. def+kancelaria://spec/positions/ksiegowosc/glowny_ksiegowy.",
-      "pattern": "^def\\+[a-z][a-z0-9-]*://spec/(positions/.+|system)$"
+      "description": "The position in a definition, e.g. definition+kancelaria://spec/positions/ksiegowosc/glowny_ksiegowy.",
+      "pattern": "^definition\\+[a-z][a-z0-9-]*://spec/(positions/.+|system)$"
     },
     "register_definition": {
       "type": "string",
-      "description": "The register in a definition, e.g. def+kancelaria://spec/registers/depozyty.",
-      "pattern": "^def\\+[a-z][a-z0-9-]*://spec/registers/.+$"
+      "description": "The register in a definition, e.g. definition+kancelaria://spec/registers/depozyty.",
+      "pattern": "^definition\\+[a-z][a-z0-9-]*://spec/registers/.+$"
     },
     "agents": {
       "type": "object",
