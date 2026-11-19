@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "department file",
-  "description": "One department of a mirrorboard: its agents and its rooms.",
+  "title": "unit file",
+  "description": "One unit of a mirrorboard, e.g. a department or a notary's own part: its agents and its rooms.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -10,7 +10,7 @@
   "properties": {
     "name": {
       "type": "string",
-      "description": "The department's name as people read it."
+      "description": "The unit's name as people read it."
     },
     "agents": {
       "$ref": "#/$defs/agents"
@@ -89,7 +89,7 @@
         },
         "meta": {
           "type": "string",
-          "description": "The room this agent keeps its memory and metadata in: room://<department>/<room>.",
+          "description": "The room this agent keeps its memory and metadata in: room://<unit>/<room>.",
           "pattern": "^room://[a-z][a-z0-9_-]*/[a-z][a-z0-9_-]*$"
         },
         "permissions": {
@@ -113,7 +113,7 @@
       "properties": {
         "address": {
           "type": "string",
-          "description": "agent://<department>/<agent> or account://<name>.",
+          "description": "agent://<unit>/<agent> or account://<name>.",
           "pattern": "^(agent://[a-z][a-z0-9_-]*/[a-z][a-z0-9_-]*|account://[a-z][a-z0-9.-]*)$"
         },
         "create_content": {

@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "mirrorboard.toml",
-  "description": "One organization's mirrorboard: its name, its owner, its config files and its departments.",
+  "description": "One organization's mirrorboard: its name, its owner, its config files and its units.",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "mirrorboard",
-    "departments"
+    "units"
   ],
   "properties": {
     "mirrorboard": {
@@ -46,9 +46,9 @@
         }
       }
     },
-    "departments": {
+    "units": {
       "type": "object",
-      "description": "Department files; the key is the department's name in addresses like agent://<department>/<agent>.",
+      "description": "Unit files: the parts of the organization, e.g. a department or a notary's own part; the key is the unit's name in addresses like agent://<unit>/<agent>.",
       "propertyNames": {
         "pattern": "^[a-z][a-z0-9_-]*$"
       },
@@ -56,12 +56,12 @@
         "type": "object",
         "additionalProperties": false,
         "required": [
-          "department"
+          "unit"
         ],
         "properties": {
-          "department": {
+          "unit": {
             "type": "string",
-            "description": "Path of the department file, relative to this file.",
+            "description": "Path of the unit file, relative to this file.",
             "pattern": "^\\./.+\\.toml$"
           }
         }
