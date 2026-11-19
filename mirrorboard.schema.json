@@ -4,12 +4,20 @@
   "description": "One organization's mirrorboard: who owns it, which definitions it uses and which department files it consists of.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["mirrorboard", "definitions", "departments"],
+  "required": [
+    "mirrorboard",
+    "accounts",
+    "definitions",
+    "departments"
+  ],
   "properties": {
     "mirrorboard": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["name", "owner"],
+      "required": [
+        "name",
+        "owner"
+      ],
       "properties": {
         "name": {
           "type": "string",
@@ -22,16 +30,44 @@
         }
       }
     },
+    "accounts": {
+      "type": "object",
+      "description": "Accounts on the chain this mirrorboard refers to; the key is used in addresses like account://<key>.",
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9.-]*$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "chain"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Who or what the account is, as people read it."
+          },
+          "chain": {
+            "type": "string",
+            "description": "The account's name on the chain.",
+            "pattern": "^[a-z][a-z0-9.-]*$"
+          }
+        }
+      }
+    },
     "definitions": {
       "type": "object",
-      "description": "Definition repositories; the key is the scheme of addresses like kancelaria://spec/positions/...",
+      "description": "Definition repositories; the key is the scheme of addresses like def+kancelaria://spec/positions/...",
       "propertyNames": {
         "pattern": "^[a-z][a-z0-9-]*$"
       },
       "additionalProperties": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["repository", "rev"],
+        "required": [
+          "repository",
+          "rev"
+        ],
         "properties": {
           "repository": {
             "type": "string",
@@ -55,7 +91,9 @@
       "additionalProperties": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["department"],
+        "required": [
+          "department"
+        ],
         "properties": {
           "department": {
             "type": "string",

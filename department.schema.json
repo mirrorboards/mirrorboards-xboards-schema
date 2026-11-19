@@ -51,18 +51,18 @@
     },
     "owner": {
       "type": "string",
-      "description": "The account that owns it. Without it, the organization's account owns it.",
+      "description": "The account that owns it: account://<key of [accounts] in mirrorboard.toml>. Without it, the organization's account owns it.",
       "pattern": "^account://[a-z][a-z0-9.-]*$"
     },
     "position_definition": {
       "type": "string",
-      "description": "The position in a definition, e.g. kancelaria://spec/positions/ksiegowosc/glowny_ksiegowy.",
-      "pattern": "^[a-z][a-z0-9-]*://spec/(positions/.+|system)$"
+      "description": "The position in a definition, e.g. def+kancelaria://spec/positions/ksiegowosc/glowny_ksiegowy.",
+      "pattern": "^def\\+[a-z][a-z0-9-]*://spec/(positions/.+|system)$"
     },
     "register_definition": {
       "type": "string",
-      "description": "The register in a definition, e.g. kancelaria://spec/registers/depozyty.",
-      "pattern": "^[a-z][a-z0-9-]*://spec/registers/.+$"
+      "description": "The register in a definition, e.g. def+kancelaria://spec/registers/depozyty.",
+      "pattern": "^def\\+[a-z][a-z0-9-]*://spec/registers/.+$"
     },
     "agents": {
       "type": "object",
