@@ -33,6 +33,13 @@
           },
           "owner": {
             "$ref": "#/$defs/owner"
+          },
+          "permissions": {
+            "type": "array",
+            "description": "Who is a member of this register's room, and with which Actanet permissions (DATA_ROOM_PERM_*). An entry with only address reads only.",
+            "items": {
+              "$ref": "#/$defs/permission"
+            }
           }
         }
       }
