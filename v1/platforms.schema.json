@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "The platforms the agents live on.",
+  "properties": {
+    "platforms": {
+      "additionalProperties": {
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "description": "The platform's name as people read it.",
+            "minLength": 1,
+            "type": "string"
+          },
+          "url": {
+            "description": "The address of the platform's API.",
+            "pattern": "^https://",
+            "type": "string"
+          }
+        },
+        "required": [
+          "label",
+          "url"
+        ],
+        "type": "object"
+      },
+      "description": "The key is used in platform://<key>.",
+      "propertyNames": {
+        "pattern": "^[a-z](?:[a-z0-9-]{0,61}[a-z0-9])?$"
+      },
+      "type": "object"
+    }
+  },
+  "required": [
+    "platforms"
+  ],
+  "title": "platforms",
+  "type": "object"
+}

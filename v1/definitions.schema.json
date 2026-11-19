@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "The definitions (XBoards) the mirrorboard is built from.",
+  "properties": {
+    "definitions": {
+      "additionalProperties": {
+        "additionalProperties": false,
+        "properties": {
+          "repository": {
+            "description": "Where to fetch the definition from. It may change; the rev may not.",
+            "pattern": "^https://",
+            "type": "string"
+          },
+          "rev": {
+            "description": "The commit: what the definition is.",
+            "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "repository",
+          "rev"
+        ],
+        "type": "object"
+      },
+      "description": "The key is the <id> of definition+<id>://...",
+      "propertyNames": {
+        "pattern": "^[a-z](?:[a-z0-9-]{0,61}[a-z0-9])?$"
+      },
+      "type": "object"
+    }
+  },
+  "required": [
+    "definitions"
+  ],
+  "title": "definitions",
+  "type": "object"
+}

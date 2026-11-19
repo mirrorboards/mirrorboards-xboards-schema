@@ -1,0 +1,375 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "A unit with {{ parameter }} places in its strings. Filled with its parameters, it must be a valid unit.",
+  "properties": {
+    "agents": {
+      "additionalProperties": {
+        "additionalProperties": false,
+        "properties": {
+          "contacts": {
+            "description": "Who may write to the agent and wake it. Empty: nobody but its owner.",
+            "items": {
+              "additionalProperties": false,
+              "oneOf": [
+                {
+                  "not": {
+                    "anyOf": [
+                      {
+                        "required": [
+                          "agent"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "organization"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "definition"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "key"
+                        ]
+                      }
+                    ]
+                  },
+                  "required": [
+                    "account"
+                  ]
+                },
+                {
+                  "not": {
+                    "anyOf": [
+                      {
+                        "required": [
+                          "account"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "organization"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "definition"
+                        ]
+                      }
+                    ]
+                  },
+                  "required": [
+                    "agent"
+                  ]
+                },
+                {
+                  "not": {
+                    "anyOf": [
+                      {
+                        "required": [
+                          "account"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "agent"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "key"
+                        ]
+                      }
+                    ]
+                  },
+                  "required": [
+                    "organization"
+                  ]
+                }
+              ],
+              "properties": {
+                "account": {
+                  "description": "An account of the accounts file: account://<key>.",
+                  "type": "string"
+                },
+                "agent": {
+                  "description": "An agent: agent://<unit>/<agent>, or another organization's: agent+<system>://<organization>[/<published name>].",
+                  "type": "string"
+                },
+                "definition": {
+                  "description": "A position of a definition: definition+<id>://spec/positions/... or .../spec/system.",
+                  "type": "string"
+                },
+                "key": {
+                  "description": "The public key of one agent of another organization.",
+                  "type": "string"
+                },
+                "organization": {
+                  "description": "Every agent of this organization: the mirrorboard's own owner.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "definition": {
+            "description": "A position of a definition: definition+<id>://spec/positions/... or .../spec/system.",
+            "type": "string"
+          },
+          "meta": {
+            "description": "The agent's memory room: room://<unit>/<room>.",
+            "type": "string"
+          },
+          "owner": {
+            "description": "An account of the accounts file: account://<key>.",
+            "type": "string"
+          },
+          "platform": {
+            "description": "The platform the agent lives on.",
+            "type": "string"
+          },
+          "systems": {
+            "description": "The Systems the agent is announced in.",
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "description": "The published name: how other organizations point at the agent in this System.",
+                  "type": "string"
+                },
+                "notice": {
+                  "description": "What the agent does, as others read it in the System. No client data.",
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "system": {
+                  "description": "A System of the systems file.",
+                  "type": "string"
+                },
+                "visibility": {
+                  "description": "Who sees the notice: everyone, or only the System's participants."
+                },
+                "wake": {
+                  "description": "Who may wake the agent through the System without a grant."
+                }
+              },
+              "required": [
+                "system",
+                "name",
+                "notice",
+                "visibility",
+                "wake"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "definition",
+          "owner",
+          "platform",
+          "meta"
+        ],
+        "type": "object"
+      },
+      "description": "The unit's agents.",
+      "propertyNames": {
+        "pattern": "^[a-z](?:[a-z0-9-]{0,61}[a-z0-9])?$"
+      },
+      "type": "object"
+    },
+    "label": {
+      "description": "The unit's name as people read it.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "parameters": {
+      "contains": {
+        "const": "unit"
+      },
+      "description": "Every parameter the blueprint uses. `unit`, the key of the unit made, is always one.",
+      "items": {
+        "pattern": "^[a-z](?:[a-z0-9-]{0,61}[a-z0-9])?$",
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "rooms": {
+      "additionalProperties": {
+        "additionalProperties": false,
+        "properties": {
+          "definition": {
+            "description": "A register or a case of a definition: what the room's data is.",
+            "type": "string"
+          },
+          "owner": {
+            "description": "An account of the accounts file: account://<key>.",
+            "type": "string"
+          },
+          "permissions": {
+            "description": "The room's members and their flags. Empty: nobody but its owner.",
+            "items": {
+              "additionalProperties": false,
+              "oneOf": [
+                {
+                  "not": {
+                    "anyOf": [
+                      {
+                        "required": [
+                          "agent"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "organization"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "definition"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "key"
+                        ]
+                      }
+                    ]
+                  },
+                  "required": [
+                    "account"
+                  ]
+                },
+                {
+                  "not": {
+                    "anyOf": [
+                      {
+                        "required": [
+                          "account"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "organization"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "definition"
+                        ]
+                      }
+                    ]
+                  },
+                  "required": [
+                    "agent"
+                  ]
+                },
+                {
+                  "not": {
+                    "anyOf": [
+                      {
+                        "required": [
+                          "account"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "agent"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "key"
+                        ]
+                      }
+                    ]
+                  },
+                  "required": [
+                    "organization"
+                  ]
+                }
+              ],
+              "properties": {
+                "account": {
+                  "description": "An account of the accounts file: account://<key>.",
+                  "type": "string"
+                },
+                "add_members": {
+                  "const": true,
+                  "description": "Add members."
+                },
+                "agent": {
+                  "description": "An agent: agent://<unit>/<agent>, or another organization's: agent+<system>://<organization>[/<published name>].",
+                  "type": "string"
+                },
+                "create_content": {
+                  "const": true,
+                  "description": "Add new entries."
+                },
+                "definition": {
+                  "description": "A position of a definition: definition+<id>://spec/positions/... or .../spec/system.",
+                  "type": "string"
+                },
+                "grant_content": {
+                  "const": true,
+                  "description": "Give others access to chosen entries."
+                },
+                "key": {
+                  "description": "The public key of one agent of another organization.",
+                  "type": "string"
+                },
+                "manage_content": {
+                  "const": true,
+                  "description": "Change and delete entries, also others'."
+                },
+                "manage_permissions": {
+                  "const": true,
+                  "description": "Change members' flags, within its own."
+                },
+                "organization": {
+                  "description": "Every agent of this organization: the mirrorboard's own owner.",
+                  "type": "string"
+                },
+                "remove_members": {
+                  "const": true,
+                  "description": "Remove members."
+                },
+                "rotate_keys": {
+                  "const": true,
+                  "description": "Replace the room's key."
+                },
+                "update_room": {
+                  "const": true,
+                  "description": "Change the room's name and description."
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "owner"
+        ],
+        "type": "object"
+      },
+      "description": "The unit's rooms.",
+      "propertyNames": {
+        "pattern": "^[a-z](?:[a-z0-9-]{0,61}[a-z0-9])?$"
+      },
+      "type": "object"
+    }
+  },
+  "required": [
+    "parameters",
+    "label"
+  ],
+  "title": "blueprint",
+  "type": "object"
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "The accounts the mirrorboard refers to.",
+  "properties": {
+    "accounts": {
+      "additionalProperties": {
+        "additionalProperties": false,
+        "properties": {
+          "chain": {
+            "description": "The chain the account lives on.",
+            "pattern": "^chain://[a-z](?:[a-z0-9-]{0,61}[a-z0-9])?$",
+            "type": "string"
+          },
+          "label": {
+            "description": "Who or what the account is, as people read it.",
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "description": "The account's name on that chain.",
+            "pattern": "^[a-z][a-z0-9.-]{0,62}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "label",
+          "chain",
+          "name"
+        ],
+        "type": "object"
+      },
+      "description": "The key is used in account://<key>.",
+      "propertyNames": {
+        "pattern": "^[a-z](?:[a-z0-9-]{0,61}[a-z0-9])?$"
+      },
+      "type": "object"
+    }
+  },
+  "required": [
+    "accounts"
+  ],
+  "title": "accounts",
+  "type": "object"
+}

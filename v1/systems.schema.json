@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "The Systems the agents may be announced in.",
+  "properties": {
+    "systems": {
+      "additionalProperties": {
+        "additionalProperties": false,
+        "properties": {
+          "key": {
+            "description": "The System's public key: what the System is.",
+            "pattern": "^[A-Z]{2,8}[1-9A-HJ-NP-Za-km-z]{40,60}$",
+            "type": "string"
+          },
+          "label": {
+            "description": "The System's name as people read it.",
+            "minLength": 1,
+            "type": "string"
+          },
+          "url": {
+            "description": "Where the System answers. It may change; the key may not.",
+            "pattern": "^https://",
+            "type": "string"
+          }
+        },
+        "required": [
+          "label",
+          "url",
+          "key"
+        ],
+        "type": "object"
+      },
+      "description": "The key is used in system://<key>.",
+      "propertyNames": {
+        "pattern": "^[a-z](?:[a-z0-9-]{0,61}[a-z0-9])?$"
+      },
+      "type": "object"
+    }
+  },
+  "required": [
+    "systems"
+  ],
+  "title": "systems",
+  "type": "object"
+}
