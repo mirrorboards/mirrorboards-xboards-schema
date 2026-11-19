@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "organizations file",
+  "description": "Partner organizations, referred to in addresses like agent+<key>://<unit>/<agent>.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "organizations"
+  ],
+  "properties": {
+    "organizations": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9-]*$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "account",
+          "mirrorboard",
+          "rev"
+        ],
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "The organization as people read it."
+          },
+          "account": {
+            "type": "string",
+            "description": "The organization's account: account://<key of the accounts file>. The System checks a sender belongs to it.",
+            "pattern": "^account://[a-z][a-z0-9.-]*$"
+          },
+          "mirrorboard": {
+            "type": "string",
+            "description": "The partner's mirrorboard repository, to look its agents up.",
+            "pattern": "^https://"
+          },
+          "rev": {
+            "type": "string",
+            "description": "The pinned commit of the partner's mirrorboard.",
+            "pattern": "^[0-9a-f]{40}$"
+          }
+        }
+      }
+    }
+  }
+}

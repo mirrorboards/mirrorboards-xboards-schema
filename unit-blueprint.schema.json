@@ -141,41 +141,19 @@
         },
         "contacts": {
           "type": "array",
-          "description": "Who may wake this agent and give it work: an agent or account of this organization, or the agents of one position in a partner organization.",
+          "description": "Who may wake this agent and give it work: agents (also a partner's, agent+<organization>://) or accounts.",
           "items": {
-            "oneOf": [
-              {
-                "type": "object",
-                "additionalProperties": false,
-                "required": [
-                  "address"
-                ],
-                "properties": {
-                  "address": {
-                    "type": "string",
-                    "description": "agent://<unit>/<agent> or account://<key>."
-                  }
-                }
-              },
-              {
-                "type": "object",
-                "additionalProperties": false,
-                "required": [
-                  "organization",
-                  "position"
-                ],
-                "properties": {
-                  "organization": {
-                    "type": "string",
-                    "description": "A partner organization's account: account://<key of the accounts file>."
-                  },
-                  "position": {
-                    "type": "string",
-                    "description": "The partner's position whose agents may wake this one: definition+<id>://spec/positions/..."
-                  }
-                }
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "address"
+            ],
+            "properties": {
+              "address": {
+                "type": "string",
+                "description": "agent://<unit>/<agent>[/<agent created later>], agent+<organization>://… for a partner's agent, or account://<key>."
               }
-            ]
+            }
           }
         },
         "systems": {
